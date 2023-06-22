@@ -1,5 +1,8 @@
 # Hamlbars Highlighter
-
+<div style="display: flex; justify-content: center;">
+  <img src="./images/logo.png" alt="Image" width="200" height="200" >
+</div>
+<br/>
 Add syntax highlighting and snippets for Hamlbars templates.
 
 ## Features
