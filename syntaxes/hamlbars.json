@@ -10,89 +10,11 @@
     {
       "begin": "^(\\s*)==",
       "contentName": "string.quoted.double.ruby",
-      "end": "$\\n*",
-      "patterns": [
-        {
-          "include": "#interpolated_ruby"
-        }
-      ]
+      "end": "$\\n*"
     },
     {
-      "begin": "^(\\s*):ruby",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "source.ruby.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.ruby"
-        }
-      ]
-    },
-    {
-      "captures": {
-        "1": {
-          "name": "punctuation.definition.prolog.hamlbars"
-        }
-      },
-      "match": "^(!!!)($|\\s.*)",
-      "name": "meta.prolog.hamlbars"
-    },
-    {
-      "begin": "^(\\s*):javascript",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "js.hamlbars",
-      "patterns": [
-        {
-          "include": "source.js"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)%script",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "js.inline.hamlbars",
-      "patterns": [
-        {
-          "include": "source.js"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):ruby$",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "source.ruby.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.ruby"
-        }
-      ]
-    },
-    {
-      "captures": {
-        "1": {
-          "name": "punctuation.section.comment.hamlbars"
-        }
-      },
-      "match": "^(\\s*)(\\/\\[[^\\]].*?$\\n?)",
-      "name": "comment.line.slash.hamlbars"
-    },
-    {
-      "begin": "^(\\s*)(\\-\\#|\\/|\\-\\s*\\/\\*+)",
-      "beginCaptures": {
-        "2": {
-          "name": "punctuation.section.comment.hamlbars"
-        }
-      },
-      "end": "^(?!\\1\\s+|\\n)",
-      "name": "comment.block.hamlbars",
-      "patterns": [
-        {
-          "include": "text.hamlbars"
-        }
-      ]
-    },
-    {
-      "begin": "^\\s*(?:((%)([-\\w:]+))|(?=\\.|#))",
-      "end": "$|(?!\\.|#|\\{|\\(|\\[|&amp;|=|-|~|!=|&=|/)",
+      "begin": "^\\s*(?:((%)([\\w:]+))|(?=\\.|#))",
+      "end": "$|(?!\\.|#|\\{|\\[|=|-|~|/)",
       "captures": {
         "1": {
           "name": "meta.tag.hamlbars"
@@ -106,17 +28,6 @@
       },
       "patterns": [
         {
-          "begin": "==",
-          "contentName": "string.quoted.double.ruby",
-          "end": "$\\n?",
-          "patterns": [
-            {
-              "include": "#interpolated_ruby"
-            }
-          ]
-        },
-
-        {
           "captures": {
             "1": {
               "name": "entity.other.attribute-name.class"
@@ -126,180 +37,102 @@
           "name": "meta.selector.css"
         },
         {
-          "captures": {
-            "1": {
-              "name": "entity.other.attribute-name.id"
-            }
-          },
-          "match": "(#[\\w-]+)",
-          "name": "meta.selector.css"
-        },
-        {
           "begin": "(?<!\\#)\\{(?=.*(,|(do)|\\{|\\}|\\||(\\#.*)|\\R)\\s*)",
           "end": "\\s*\\}(?!\\s*\\,)(?!\\s*\\|)(?!\\#\\{.*\\})",
           "name": "meta.section.attributes.hamlbars",
           "patterns": [
             {
-              "include": "source.ruby"
-            },
-            {
-              "include": "#continuation"
-            },
-            {
-              "include": "#rubyline"
-            }
-          ]
-        },
-        {
-          "begin": "\\(",
-          "end": "\\)",
-          "name": "meta.section.attributes.plain.hamlbars",
-          "patterns": [
-            {
-              "match": "([\\w-]+)",
-              "name": "constant.other.symbol.ruby"
-            },
-            {
-              "match": "\\=",
-              "name": "punctuation"
-            },
-            {
-              "include": "#variables"
-            },
-            {
-              "begin": "\"",
-              "end": "\"",
-              "name": "string.quoted.double.ruby",
+              "begin": "==",
+              "contentName": "string.quoted.double.ruby",
+              "end": "$\\n?",
               "patterns": [
-                {
-                  "match": "\\\\(x\\h{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
-                  "name": "constant.character.escape.ruby"
-                },
                 {
                   "include": "#interpolated_ruby"
                 }
               ]
             },
             {
-              "include": "#interpolated_ruby"
-            }
-          ]
-        },
-        {
-          "begin": "\\[(?=.+(,|\\[|\\]|\\||(\\#.*))\\s*)",
-          "end": "\\s*\\](?!.*(?!\\#\\[)\\])",
-          "name": "meta.section.object.hamlbars",
-          "patterns": [
-            {
-              "include": "source.ruby"
+              "match": "\\.[\\w-]+",
+              "name": "support.class.hamlbars"
             },
             {
-              "include": "#continuation"
+              "match": "/",
+              "name": "punctuation.terminator.tag.hamlbars"
+            },
+            {
+              "match": "#[\\w-]+",
+              "name": "support.class.hamlbars"
+            },
+            {
+              "begin": "\\{(?=.*\\}|.*\\|\\s*$)",
+              "end": "\\}|$|^(?!.*\\|\\s*$)",
+              "name": "meta.section.attributes.hamlbars",
+              "patterns": [
+                {
+                  "begin": "(\"|\\')",
+                  "beginCaptures": {
+                    "0": {
+                      "name": "string.quoted.double.hamlbars"
+                    }
+                  },
+                  "end": "\\1",
+                  "endCaptures": {
+                    "0": {
+                      "name": "string.quoted.double.hamlbars"
+                    }
+                  },
+                  "patterns": [
+                    {
+                      "begin": "(\\{{2,3})[ ]*([a-zA-Z0-9\\._-]*?)([ ]|\\})",
+                      "beginCaptures": {
+                        "1": {
+                          "name": "support.constant.hamlbars"
+                        },
+                        "2": {
+                          "name": "variable.parameter.hamlbars"
+                        },
+                        "3": {
+                          "name": "support.constant.hamlbars"
+                        }
+                      },
+                      "end": "\\}{1,3}",
+                      "endCaptures": {
+                        "0": {
+                          "name": "support.constant.hamlbars"
+                        }
+                      }
+                    },
+                    {
+                      "match": ".*?",
+                      "name": "string.quoted.hamlbars"
+                    }
+                  ]
+                },
+                {
+                  "include": "source.ruby.rails"
+                },
+                {
+                  "include": "#continuation"
+                }
+              ]
+            },
+            {
+              "begin": "\\[(?=.*\\]|.*\\|\\s*$)",
+              "end": "\\]|$|^(?!.*\\|\\s*$)",
+              "name": "meta.section.object.hamlbars",
+              "patterns": [
+                {
+                  "include": "source.ruby.rails"
+                },
+                {
+                  "include": "#continuation"
+                }
+              ]
             },
             {
               "include": "#rubyline"
             }
           ]
-        },
-        {
-          "include": "#interpolated_ruby_line"
-        },
-        {
-          "include": "#rubyline"
-        },
-        {
-          "match": "/",
-          "name": "punctuation.terminator.tag.hamlbars"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):(ruby|opal)$",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "source.ruby.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.ruby"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):ruby$",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "source.ruby.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.ruby"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):(style|sass)$",
-      "end": "^(?=\\1\\s+|$\\n*)",
-      "name": "source.sass.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.sass"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):coffee(script)?",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "source.coffee.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.coffee"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):plain$",
-      "end": "^(?=\\1\\s+|$\\n*)",
-      "name": "text.plain.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "text.plain"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:ruby)",
-      "beginCaptures": {
-        "2": {
-          "name": "keyword.control.filter.hamlbars"
-        }
-      },
-      "end": "(?m:(?<=\\n)(?!\\1\\s+|$\\n*))",
-      "name": "source.ruby.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.ruby"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:sass)",
-      "beginCaptures": {
-        "2": {
-          "name": "keyword.control.filter.hamlbars"
-        }
-      },
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "source.embedded.filter.sass",
-      "patterns": [
-        {
-          "include": "source.sass"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*):(styles|sass)$",
-      "end": "^(?=\\1\\s+|$\\n*)",
-      "name": "source.sass.embedded.filter.hamlbars",
-      "patterns": [
-        {
-          "include": "source.sass"
         }
       ]
     },
@@ -326,85 +159,7 @@
       "end": "$",
       "patterns": [
         {
-          "include": "#interpolated_ruby_line"
-        },
-        {
           "include": "#rubyline"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:php)",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "meta.embedded.php",
-      "captures": {
-        "2": {
-          "name": "entity.name.tag.hamlbars"
-        }
-      },
-      "patterns": [
-        {
-          "include": "text.html.php#language"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:markdown)",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "meta.embedded.markdown",
-      "captures": {
-        "2": {
-          "name": "entity.name.tag.hamlbars"
-        }
-      },
-      "patterns": [
-        {
-          "include": "text.html.markdown"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:(css|styles?))$",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "meta.embedded.css",
-      "captures": {
-        "2": {
-          "name": "entity.name.tag.hamlbars"
-        }
-      },
-      "patterns": [
-        {
-          "include": "source.css"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:sass)$",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "meta.embedded.sass",
-      "captures": {
-        "2": {
-          "name": "entity.name.tag.hamlbars"
-        }
-      },
-      "patterns": [
-        {
-          "include": "source.sass"
-        }
-      ]
-    },
-    {
-      "begin": "^(\\s*)(:scss)$",
-      "end": "^(?!\\1\\s+|$\\n*)",
-      "name": "meta.embedded.scss",
-      "captures": {
-        "2": {
-          "name": "entity.name.tag.hamlbars"
-        }
-      },
-      "patterns": [
-        {
-          "include": "source.scss"
         }
       ]
     }
@@ -418,78 +173,6 @@
       },
       "match": "(\\|)\\s*\\n"
     },
-    "interpolated_ruby": {
-      "patterns": [
-        {
-          "captures": {
-            "0": {
-              "name": "punctuation.section.embedded.ruby"
-            },
-            "1": {
-              "name": "source.ruby.embedded.source.empty"
-            }
-          },
-          "match": "#\\{(\\})",
-          "name": "source.ruby.embedded.source"
-        },
-        {
-          "begin": "#\\{",
-          "captures": {
-            "0": {
-              "name": "punctuation.section.embedded.ruby"
-            }
-          },
-          "end": "(\\})",
-          "name": "source.ruby.embedded.source",
-          "patterns": [
-            {
-              "include": "#nest_curly_and_self"
-            },
-            {
-              "include": "source.ruby"
-            }
-          ]
-        },
-        {
-          "include": "#variables"
-        }
-      ]
-    },
-    "interpolated_ruby_line": {
-      "begin": "!?==",
-      "contentName": "string.source.ruby.embedded.hamlbars",
-      "end": "$",
-      "name": "meta.line.ruby.interpolated.hamlbars",
-      "patterns": [
-        {
-          "include": "#interpolated_ruby"
-        },
-        {
-          "include": "source.ruby#escaped_char"
-        }
-      ]
-    },
-    "nest_curly_and_self": {
-      "patterns": [
-        {
-          "begin": "\\{",
-          "captures": {
-            "0": {
-              "name": "punctuation.section.scope.ruby"
-            }
-          },
-          "end": "\\}",
-          "patterns": [
-            {
-              "include": "#nest_curly_and_self"
-            },
-            {
-              "include": "source.ruby"
-            }
-          ]
-        }
-      ]
-    },
     "variables": {
       "patterns": [
         {
@@ -500,100 +183,17 @@
           },
           "match": "(#@)[a-zA-Z_]\\w*",
           "name": "variable.other.readwrite.instance.ruby"
-        },
-        {
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.variable.ruby"
-            }
-          },
-          "match": "(#@@)[a-zA-Z_]\\w*",
-          "name": "variable.other.readwrite.class.ruby"
-        },
-        {
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.variable.ruby"
-            }
-          },
-          "match": "(#\\$)[a-zA-Z_]\\w*",
-          "name": "variable.other.readwrite.global.ruby"
         }
       ]
     },
     "rubyline": {
-      "begin": "(&amp|!)?(=|-|~)",
-      "contentName": "source.ruby.embedded.hamlbars",
-      "end": "((do|\\{)( \\|[.*]+\\|)?)$|$|^(?!.*\\|\\s*)$\\n?",
-      "endCaptures": {
-        "1": {
-          "name": "source.ruby.embedded.html"
-        },
-        "2": {
-          "name": "keyword.control.ruby.start-block"
-        }
-      },
       "name": "meta.line.ruby.hamlbars",
       "patterns": [
         {
-          "match": "\\s+((elseif|foreach|switch|declare|default|use))(?=\\s|\\()",
-          "captures": {
-            "1": {
-              "name": "keyword.control.php"
-            }
-          }
-        },
-        {
-          "match": "\\s+(require_once|include_once)(?=\\s|\\()",
-          "captures": {
-            "1": {
-              "name": "keyword.control.import.include.php"
-            }
-          }
-        },
-        {
-          "match": "\\s+(catch|try|throw|exception|finally|die)(?=\\s|\\(|\\n*)",
-          "name": "keyword.control.exception.php"
-        },
-        {
-          "match": "\\s+(function\\s*)((?=\\())",
-          "captures": {
-            "1": {
-              "name": "storage.type.function.php"
-            }
-          }
-        },
-        {
-          "match": "\\s+(use\\s*)((?=\\())",
-          "captures": {
-            "1": {
-              "name": "keyword.control.php"
-            }
-          }
-        },
-        {
-          "match": "(\\||,|<|do|\\{)\\s*(\\#.*)?$\\n*",
-          "name": "source.ruby",
-          "patterns": [
-            {
-              "include": "#rubyline"
-            }
-          ]
-        },
-        {
-          "comment": "Hack to let ruby comments work in this context properly",
-          "match": "#.*$",
-          "name": "comment.line.number-sign.ruby"
-        },
-        {
           "include": "source.ruby"
-        },
-        {
-          "include": "#continuation"
         }
       ]
     }
   },
-  "scopeName": "text.hamlbars",
-  "uuid": "3D727049-DD05-45DF-92A5-D50EA36FD035"
+  "scopeName": "text.hamlbars"
 }
