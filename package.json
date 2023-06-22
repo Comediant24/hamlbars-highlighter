@@ -2,8 +2,12 @@
   "name": "hamlbars-highlighter",
   "displayName": "Hamlbars Highlighter",
   "description": "Hamlbars syntex highlighter and snippets",
-  "version": "0.0.1",
-  "publisher": "Iurii Bairamukov",
+  "version": "0.0.2",
+  "publisher": "comediant24",
+  "author": {
+    "name": "Iurii Bairamukov"
+  },
+  "icon": "./images/icon.png",
   "engines": {
     "vscode": "^1.79.0"
   },
